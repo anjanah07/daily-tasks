@@ -3,8 +3,7 @@
  * for Tailwind Intellisense & Autocompletion in the source files
  */
 import type { Config } from "tailwindcss";
-
-import baseConfig from "@acme/tailwind-config/web";
+import baseConfig from "@daily-tasks/tailwind-config/web";
 
 export default {
   content: ["./src/**/*.tsx"],
