@@ -28,5 +28,8 @@
     "turbo": "^1.13.3",
     "typescript": "^5.4.5"
   },
-  "prettier": "@daily-tasks/prettier-config"
+  "prettier": "@daily-tasks/prettier-config",
+  "workspaces": [
+    "packages/*"
+  ]
 }
