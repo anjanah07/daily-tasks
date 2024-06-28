@@ -2,7 +2,9 @@
   "extends": "@daily-tasks/tsconfig/internal-package.json",
   "compilerOptions": {
     "outDir": "dist",
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "moduleResolution": "node", // This is the default and works in most cases
+    "target": "ES2018" 
   },
   "include": ["src"],
   "exclude": ["node_modules"]

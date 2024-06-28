@@ -6,11 +6,13 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
+
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
 import type { Session } from "@daily-tasks/auth";
+// import type { Session } from "@daily-tasks/auth";
 import { db } from "@daily-tasks/db/client";
 
 /**
@@ -24,14 +26,19 @@ import { db } from "@daily-tasks/db/client";
  * wrap this and provides the required context.
  *
  * @see https://trpc.io/docs/server/context
+ *
  */
+// interface createTRPCtype {
+//   session: Session | null;
+//   db: typeof db;
+// };
+
 export const createTRPCContext = (opts: {
-  headers: Headers;
   session: Session | null;
+  headers: Headers;
 }) => {
   const session = opts.session;
   const source = opts.headers.get("x-trpc-source") ?? "unknown";
-
   console.log(">>> tRPC Request from", source, "by", session?.user);
 
   return {

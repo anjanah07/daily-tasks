@@ -3,7 +3,6 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Discord from "next-auth/providers/discord";
 
 import { db } from "@daily-tasks/db/client";
-import { Account, Session, User } from "@daily-tasks/db/schema";
 
 declare module "next-auth" {
   interface Session {
@@ -13,24 +12,20 @@ declare module "next-auth" {
   }
 }
 
-// export const authConfig = {
-//   adapter: DrizzleAdapter(db, {
-//     usersTable: User,
-//     accountsTable: Account,
-//     sessionsTable: Session,
-//   }),
-//   providers: [Discord],
-//   callbacks: {
-//     session: (opts) => {
-//       if (!("user" in opts)) throw "unreachable with session strategy";
+export const authConfig = {
+  adapter: DrizzleAdapter(db),
+  providers: [Discord],
+  callbacks: {
+    session: (opts) => {
+      if (!("user" in opts)) throw "unreachable with session strategy";
 
-//       return {
-//         ...opts.session,
-//         user: {
-//           ...opts.session.user,
-//           id: opts.user.id,
-//         },
-//       };
-//     },
-//   },
-// } satisfies NextAuthConfig;
+      return {
+        ...opts.session,
+        user: {
+          ...opts.session.user,
+          id: opts.user.id,
+        },
+      };
+    },
+  },
+} satisfies NextAuthConfig;
