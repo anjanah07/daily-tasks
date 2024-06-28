@@ -13,9 +13,11 @@
       "default": "./src/client.ts"
     },
     "./schema": {
-      "types": "./dist/schema.d.ts",
-      "default": "./src/schema.ts"
+      "types": "./dist/exports.d.ts",
+      "default": "./src/exports.ts"
     }
+   
+
   },
   "license": "MIT",
   "scripts": {

@@ -1,10 +1,8 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 import { appRouter, createTRPCContext } from "@daily-tasks/api";
-import { auth } from "@daily-tasks/auth";
 
 export const runtime = "edge";
-
 /**
  * Configure basic CORS headers
  * You should extend this to match your needs
@@ -24,7 +22,7 @@ export const OPTIONS = () => {
   return response;
 };
 
-const handler = auth(async (req) => {
+const handler = async (req: Request) => {
   const response = await fetchRequestHandler({
     endpoint: "/api/trpc",
     router: appRouter,
@@ -32,7 +30,8 @@ const handler = auth(async (req) => {
     createContext: () =>
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
       createTRPCContext({
-        session: req.auth,
+        //TODO: session: req.session,
+        session: null,
         headers: req.headers,
       }),
     onError({ error, path }): void {
@@ -42,6 +41,6 @@ const handler = auth(async (req) => {
 
   setCorsHeaders(response);
   return response;
-});
+};
 
 export { handler as GET, handler as POST };
